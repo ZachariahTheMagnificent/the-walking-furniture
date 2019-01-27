@@ -1,0 +1,48 @@
+cmake_minimum_required(VERSION 3.11.0)
+project(vulkan)
+
+add_library(vulkan)
+target_compile_features(vulkan PUBLIC cxx_std_17)
+target_include_directories(vulkan PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include")
+target_sources(vulkan
+	PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include/vulkan/ext/ValidationCheck.hpp"
+	PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include/vulkan/ext/ValidationFeatureDisable.hpp"
+	PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include/vulkan/ext/ValidationFeatureEnable.hpp"
+	PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include/vulkan/ext/ValidationFeatures.hpp"
+	PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include/vulkan/ext/ValidationFlags.hpp"
+    PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include/vulkan/khr/PhysicalDeviceProperties2.hpp"
+    PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include/vulkan/API_PTR.hpp"
+    PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include/vulkan/ApplicationInfo.hpp"
+    PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include/vulkan/Bool.hpp"
+    PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include/vulkan/Device.hpp"
+    PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include/vulkan/DeviceAddress.hpp"
+    PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include/vulkan/DeviceSize.hpp"
+    PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include/vulkan/ExtensionProperties.hpp"
+    PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include/vulkan/Extent2d.hpp"
+    PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include/vulkan/Extent3d.hpp"
+    PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include/vulkan/Flag.hpp"
+    PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include/vulkan/InputStructure.hpp"
+    PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include/vulkan/Instance.hpp"
+    PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include/vulkan/InstanceCreateFlags.hpp"
+    PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include/vulkan/InstanceCreateInfo.hpp"
+    PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include/vulkan/luidSize.hpp"
+    PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include/vulkan/maxExtensionNameSize.hpp"
+    PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include/vulkan/maxPhysicalDeviceNameSize.hpp"
+    PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include/vulkan/Offset2d.hpp"
+    PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include/vulkan/Offset3d.hpp"
+    PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include/vulkan/OutputStructure.hpp"
+    PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include/vulkan/PhysicalDeviceIdProperties.hpp"
+    PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include/vulkan/PhysicalDeviceLimits.hpp"
+    PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include/vulkan/PhysicalDeviceProperties.hpp"
+    PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include/vulkan/PhysicalDeviceProperties2.hpp"
+    PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include/vulkan/PhysicalDeviceType.hpp"
+    PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include/vulkan/Rect2d.hpp"
+    PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include/vulkan/Result.hpp"
+    PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include/vulkan/SampleCountFlags.hpp"
+    PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include/vulkan/StructureType.hpp"
+    PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include/vulkan/uuidSize.hpp"
+    PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include/vulkan/VendorId.hpp"
+    PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include/vulkan/version.hpp"
+    PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include/vulkan/vulkan.hpp"
+    PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/source/vulkan.cpp"
+)
