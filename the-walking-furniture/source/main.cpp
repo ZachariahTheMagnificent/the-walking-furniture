@@ -51,7 +51,7 @@ int main()
 			FreeLibrary(vulkanLibrary);
 			return EXIT_FAILURE;
 		}
-		auto properties = new vk::ExtensionProperties[count];
+		const auto properties = new vk::ExtensionProperties[count];
 		if(vkEnumerateInstanceExtensionProperties(nullptr, &count, properties) != vk::Result::success)
 		{
 			std::cerr << "vkEnumerateInstanceExtensionProperties() returned an error!\n";
@@ -69,6 +69,39 @@ int main()
 		delete [] properties;
 	}
 
+	const auto vkEnumerateInstanceLayerProperties = reinterpret_cast<vk::EnumerateInstanceLayerProperties>(vkGetInstanceProcAddr(nullptr, "vkEnumerateInstanceLayerProperties"));
+
+	if(vkEnumerateInstanceLayerProperties == nullptr)
+	{
+		std::cerr << "Can't load vkEnumerateInstanceExtensionProperties!\n";
+		FreeLibrary(vulkanLibrary);
+		return EXIT_FAILURE;
+	}
+
+	{
+		auto count = std::uint32_t{};
+		if(vkEnumerateInstanceLayerProperties(&count, nullptr) != vk::Result::success)
+		{
+			std::cerr << "vkEnumerateInstanceLayerProperties() returned an error!\n";
+			FreeLibrary(vulkanLibrary);
+			return EXIT_FAILURE;
+		}
+		const auto properties = new vk::LayerProperties[count];
+		if(vkEnumerateInstanceLayerProperties(&count, properties) != vk::Result::success)
+		{
+			std::cerr << "vkEnumerateInstanceLayerProperties() returned an error!\n";
+			FreeLibrary(vulkanLibrary);
+			return EXIT_FAILURE;
+		}
+
+		std::cout << "Here are the list of layers your program supports.\n";
+		for(auto i = std::size_t{}; i < count; ++i)
+		{
+			std::cout << properties[i].layerName << ": version " << properties[i].implementationVersion << "\n";
+		}
+
+		delete [] properties;
+	}
 	FreeLibrary(vulkanLibrary);
 	return EXIT_SUCCESS;
 }

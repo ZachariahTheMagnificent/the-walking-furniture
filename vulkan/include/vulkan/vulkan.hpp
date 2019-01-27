@@ -20,7 +20,9 @@
 #include <vulkan/Instance.hpp>
 #include <vulkan/InstanceCreateFlags.hpp>
 #include <vulkan/InstanceCreateInfo.hpp>
+#include <vulkan/LayerProperties.hpp>
 #include <vulkan/luidSize.hpp>
+#include <vulkan/maxDescriptionSize.hpp>
 #include <vulkan/maxExtensionNameSize.hpp>
 #include <vulkan/maxPhysicalDeviceNameSize.hpp>
 #include <vulkan/Offset2d.hpp>
@@ -54,6 +56,9 @@ namespace vk
     const char* pLayerName,
     std::uint32_t* pPropertyCount,
     ExtensionProperties* pProperties);
+	typedef Result (VKAPI_PTR *EnumerateInstanceLayerProperties)(
+    uint32_t*                                   pPropertyCount,
+    LayerProperties*                          pProperties);
 
 	typedef Result (VKAPI_PTR *CreateInstance)(const InstanceCreateInfo* info, const AllocationCallbacks* allocator, InstanceHandle* output);
 	typedef void (VKAPI_PTR *DestroyInstance)(InstanceHandle instance, const AllocationCallbacks* pAllocator);
