@@ -63,7 +63,9 @@ int main()
 		std::cout << "Here are the list of extensions your program supports.\n";
 		for(auto i = std::size_t{}; i < count; ++i)
 		{
-			std::cout << properties[i].extensionName << ": version " << properties[i].specVersion << "\n";
+			std::cout << properties[i].extensionName << '\n';
+			std::cout << " version: " << properties[i].specVersion << "\n";
+			std::cout << '\n';
 		}
 
 		delete [] properties;
@@ -97,7 +99,11 @@ int main()
 		std::cout << "Here are the list of layers your program supports.\n";
 		for(auto i = std::size_t{}; i < count; ++i)
 		{
-			std::cout << properties[i].layerName << ": version " << properties[i].implementationVersion << "\n";
+			std::cout << properties[i].layerName << '\n';
+			std::cout << " Vulkan version: " << (properties[i].specVersion >> 22 & 0x03ff) << '.' << (properties[i].specVersion >> 12 & 0x03ff) << '.' << (properties[i].specVersion & 0x0fff) << '\n';
+			std::cout << " version: " << properties[i].implementationVersion << "\n";
+			std::cout << " description: " << properties[i].description << "\n";
+			std::cout << '\n';
 		}
 
 		delete [] properties;
