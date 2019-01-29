@@ -5,6 +5,7 @@
 #include <vulkan/ext/ValidationFeatureEnable.hpp>
 #include <vulkan/ext/ValidationFeatures.hpp>
 #include <vulkan/ext/ValidationFlags.hpp>
+#include <vulkan/khr/GetPhysicalDeviceProperties2.hpp>
 #include <vulkan/khr/PhysicalDeviceIdProperties.hpp>
 #include <vulkan/khr/PhysicalDeviceProperties2.hpp>
 #include <vulkan/AllocationCallbacks.hpp>
@@ -58,7 +59,4 @@
 
 namespace vk
 {
-	typedef void (VKAPI_PTR *GetPhysicalDeviceProperties2KHR)(
-		PhysicalDevice physicalDevice,
-		PhysicalDeviceProperties2* pProperties);
 }
