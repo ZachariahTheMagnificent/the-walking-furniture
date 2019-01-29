@@ -14,6 +14,7 @@
 #include <vulkan/Device.hpp>
 #include <vulkan/DeviceAddress.hpp>
 #include <vulkan/DeviceSize.hpp>
+#include <vulkan/EnumerateInstanceExtensionProperties.hpp>
 #include <vulkan/EnumerateInstanceLayerProperties.hpp>
 #include <vulkan/EnumerateInstanceVersion.hpp>
 #include <vulkan/ExtensionProperties.hpp>
@@ -52,11 +53,6 @@ namespace vk
 	using InstanceHandle = struct Instance*;
 
 	typedef VoidFunction (VKAPI_PTR *GetInstanceProcAddr)(InstanceHandle handle, const char* name);
-
-	typedef Result (VKAPI_PTR *EnumerateInstanceExtensionProperties)(
-    const char* pLayerName,
-    std::uint32_t* pPropertyCount,
-    ExtensionProperties* pProperties);
 
 	typedef Result (VKAPI_PTR *CreateInstance)(const InstanceCreateInfo* info, const AllocationCallbacks* allocator, InstanceHandle* output);
 	typedef void (VKAPI_PTR *DestroyInstance)(InstanceHandle instance, const AllocationCallbacks* pAllocator);
