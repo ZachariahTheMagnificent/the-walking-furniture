@@ -41,11 +41,10 @@
 #include <vulkan/uuidSize.hpp>
 #include <vulkan/VendorId.hpp>
 #include <vulkan/version.hpp>
+#include <vulkan/VoidFunction.hpp>
 
 namespace vk
 {
-	typedef void (VKAPI_PTR *VoidFunction)();
-
 	using InstanceHandle = struct Instance*;
 	struct AllocationCallbacks;
 

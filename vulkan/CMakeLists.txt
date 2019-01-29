@@ -46,6 +46,7 @@ target_sources(vulkan
     PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include/vulkan/uuidSize.hpp"
     PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include/vulkan/VendorId.hpp"
     PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include/vulkan/version.hpp"
+    PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include/vulkan/VoidFunction.hpp"
     PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include/vulkan/vulkan.hpp"
     PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/source/vulkan.cpp"
 )
