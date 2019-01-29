@@ -37,6 +37,7 @@ target_sources(vulkan
     PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include/vulkan/PhysicalDeviceLimits.hpp"
     PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include/vulkan/PhysicalDeviceProperties.hpp"
     PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include/vulkan/PhysicalDeviceProperties2.hpp"
+    PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include/vulkan/PhysicalDeviceSparceProperties.hpp"
     PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include/vulkan/PhysicalDeviceType.hpp"
     PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include/vulkan/Rect2d.hpp"
     PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include/vulkan/Result.hpp"
