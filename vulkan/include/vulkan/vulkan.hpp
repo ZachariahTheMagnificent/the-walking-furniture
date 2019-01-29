@@ -6,6 +6,7 @@
 #include <vulkan/ext/ValidationFeatures.hpp>
 #include <vulkan/ext/ValidationFlags.hpp>
 #include <vulkan/khr/PhysicalDeviceProperties2.hpp>
+#include <vulkan/AllocationCallbacks.hpp>
 #include <vulkan/API_PTR.hpp>
 #include <vulkan/ApplicationInfo.hpp>
 #include <vulkan/Bool.hpp>
@@ -46,7 +47,6 @@
 namespace vk
 {
 	using InstanceHandle = struct Instance*;
-	struct AllocationCallbacks;
 
 	typedef VoidFunction (VKAPI_PTR *GetInstanceProcAddr)(InstanceHandle handle, const char* name);
 
