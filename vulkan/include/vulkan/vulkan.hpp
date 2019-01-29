@@ -55,10 +55,9 @@ namespace vk
 	typedef Result (VKAPI_PTR *CreateInstance)(const InstanceCreateInfo* info, const AllocationCallbacks* allocator, Instance* output);
 	typedef void (VKAPI_PTR *DestroyInstance)(Instance instance, const AllocationCallbacks* pAllocator);
 
-	using DeviceHandle = struct Device*;
 	using PhysicalDeviceHandle = struct PhysicalDevice*;
 
-	typedef VoidFunction (VKAPI_PTR *GetDeviceProcAddr)(DeviceHandle handle, const char* name);
+	typedef VoidFunction (VKAPI_PTR *GetDeviceProcAddr)(Device handle, const char* name);
 	typedef Result (VKAPI_PTR *EnumeratePhysicalDevices)(Instance instance, std::uint32_t* pPhysicalDeviceCount, PhysicalDeviceHandle* pPhysicalDevices);
 
 	typedef void (VKAPI_PTR *GetPhysicalDeviceProperties)(PhysicalDeviceHandle physicalDevice, PhysicalDeviceProperties* pProperties);
