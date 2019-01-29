@@ -21,6 +21,7 @@
 #include <vulkan/Extent2d.hpp>
 #include <vulkan/Extent3d.hpp>
 #include <vulkan/Flag.hpp>
+#include <vulkan/GetInstanceProcAddr.hpp>
 #include <vulkan/InputStructure.hpp>
 #include <vulkan/Instance.hpp>
 #include <vulkan/InstanceCreateFlags.hpp>
@@ -51,8 +52,6 @@
 
 namespace vk
 {
-	typedef VoidFunction (VKAPI_PTR *GetInstanceProcAddr)(Instance instance, const char* name);
-
 	typedef Result (VKAPI_PTR *CreateInstance)(const InstanceCreateInfo* info, const AllocationCallbacks* allocator, Instance* output);
 	typedef void (VKAPI_PTR *DestroyInstance)(Instance instance, const AllocationCallbacks* pAllocator);
 
