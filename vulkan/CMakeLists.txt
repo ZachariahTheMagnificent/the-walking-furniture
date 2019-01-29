@@ -19,6 +19,7 @@ target_sources(vulkan
     PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include/vulkan/Device.hpp"
     PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include/vulkan/DeviceAddress.hpp"
     PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include/vulkan/DeviceSize.hpp"
+    PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include/vulkan/EnumerateInstanceVersion.hpp"
     PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include/vulkan/ExtensionProperties.hpp"
     PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include/vulkan/Extent2d.hpp"
     PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include/vulkan/Extent3d.hpp"
