@@ -5,6 +5,7 @@
 #include <vulkan/ext/ValidationFeatureEnable.hpp>
 #include <vulkan/ext/ValidationFeatures.hpp>
 #include <vulkan/ext/ValidationFlags.hpp>
+#include <vulkan/khr/PhysicalDeviceIdProperties.hpp>
 #include <vulkan/khr/PhysicalDeviceProperties2.hpp>
 #include <vulkan/AllocationCallbacks.hpp>
 #include <vulkan/API_PTR.hpp>
@@ -64,7 +65,6 @@ namespace vk
 
 	using DeviceHandle = struct Device*;
 	using PhysicalDeviceHandle = struct PhysicalDevice*;
-	typedef PhysicalDeviceIdProperties VkPhysicalDeviceIDPropertiesKHR;
 
 	typedef VoidFunction (VKAPI_PTR *GetDeviceProcAddr)(DeviceHandle handle, const char* name);
 	typedef Result (VKAPI_PTR *EnumeratePhysicalDevices)(InstanceHandle instance, std::uint32_t* pPhysicalDeviceCount, PhysicalDeviceHandle* pPhysicalDevices);

@@ -10,6 +10,7 @@ target_sources(vulkan
 	PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include/vulkan/ext/ValidationFeatureEnable.hpp"
 	PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include/vulkan/ext/ValidationFeatures.hpp"
 	PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include/vulkan/ext/ValidationFlags.hpp"
+    PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include/vulkan/khr/PhysicalDeviceIdProperties.hpp"
     PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include/vulkan/khr/PhysicalDeviceProperties2.hpp"
     PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include/vulkan/AllocationCallbacks.hpp"
     PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include/vulkan/API_PTR.hpp"
