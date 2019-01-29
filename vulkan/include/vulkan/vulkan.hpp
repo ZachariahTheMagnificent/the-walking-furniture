@@ -23,6 +23,7 @@
 #include <vulkan/Extent2d.hpp>
 #include <vulkan/Extent3d.hpp>
 #include <vulkan/Flag.hpp>
+#include <vulkan/GetDeviceProcAddr.hpp>
 #include <vulkan/GetInstanceProcAddr.hpp>
 #include <vulkan/InputStructure.hpp>
 #include <vulkan/Instance.hpp>
@@ -54,7 +55,6 @@
 
 namespace vk
 {
-	typedef VoidFunction (VKAPI_PTR *GetDeviceProcAddr)(Device handle, const char* name);
 	typedef Result (VKAPI_PTR *EnumeratePhysicalDevices)(Instance instance, std::uint32_t* pPhysicalDeviceCount, PhysicalDevice* pPhysicalDevices);
 
 	typedef void (VKAPI_PTR *GetPhysicalDeviceProperties)(PhysicalDevice physicalDevice, PhysicalDeviceProperties* pProperties);
