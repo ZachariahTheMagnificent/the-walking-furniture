@@ -19,6 +19,7 @@
 #include <vulkan/EnumerateInstanceExtensionProperties.hpp>
 #include <vulkan/EnumerateInstanceLayerProperties.hpp>
 #include <vulkan/EnumerateInstanceVersion.hpp>
+#include <vulkan/EnumeratePhysicalDevices.hpp>
 #include <vulkan/ExtensionProperties.hpp>
 #include <vulkan/Extent2d.hpp>
 #include <vulkan/Extent3d.hpp>
@@ -55,15 +56,13 @@
 
 namespace vk
 {
-	typedef Result (VKAPI_PTR *EnumeratePhysicalDevices)(Instance instance, std::uint32_t* pPhysicalDeviceCount, PhysicalDevice* pPhysicalDevices);
-
 	typedef void (VKAPI_PTR *GetPhysicalDeviceProperties)(PhysicalDevice physicalDevice, PhysicalDeviceProperties* pProperties);
 
 	typedef void (VKAPI_PTR *GetPhysicalDeviceProperties2)(
-    PhysicalDevice physicalDevice,
-    PhysicalDeviceProperties2* pProperties);
+		PhysicalDevice physicalDevice,
+		PhysicalDeviceProperties2* pProperties);
 
 	typedef void (VKAPI_PTR *GetPhysicalDeviceProperties2KHR)(
-    PhysicalDevice physicalDevice,
-    PhysicalDeviceProperties2* pProperties);
+		PhysicalDevice physicalDevice,
+		PhysicalDeviceProperties2* pProperties);
 }
