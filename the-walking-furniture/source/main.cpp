@@ -32,7 +32,7 @@ int main()
 	auto version = std::uint32_t{};
 	vkEnumerateInstanceVersion(&version);
 
-	std::cout << "Vulkan version: " << (version >> 22 & 0x03ff) << '.' << (version >> 12 & 0x03ff) << '.' << (version & 0x0fff) << '\n';
+	std::cout << "Vulkan version: " << vk::PrintableVersion(version) << '\n';
 
 	const auto vkEnumerateInstanceExtensionProperties = reinterpret_cast<vk::EnumerateInstanceExtensionProperties>(vkGetInstanceProcAddr(nullptr, "vkEnumerateInstanceExtensionProperties"));
 
@@ -100,7 +100,7 @@ int main()
 		for(auto i = std::size_t{}; i < count; ++i)
 		{
 			std::cout << properties[i].layerName << '\n';
-			std::cout << " Vulkan version: " << (properties[i].specVersion >> 22 & 0x03ff) << '.' << (properties[i].specVersion >> 12 & 0x03ff) << '.' << (properties[i].specVersion & 0x0fff) << '\n';
+			std::cout << " Vulkan version: " << vk::PrintableVersion(properties[i].specVersion) << '\n';
 			std::cout << " version: " << properties[i].implementationVersion << "\n";
 			std::cout << " description: " << properties[i].description << "\n";
 			std::cout << '\n';

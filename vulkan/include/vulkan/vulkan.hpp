@@ -49,6 +49,7 @@
 #include <vulkan/PhysicalDeviceProperties2.hpp>
 #include <vulkan/PhysicalDeviceSparceProperties.hpp>
 #include <vulkan/PhysicalDeviceType.hpp>
+#include <vulkan/PrintableVersion.hpp>
 #include <vulkan/Rect2d.hpp>
 #include <vulkan/Result.hpp>
 #include <vulkan/SampleCountFlags.hpp>
