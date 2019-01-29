@@ -40,6 +40,7 @@ target_sources(vulkan
     PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include/vulkan/InstanceCreateInfo.hpp"
     PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include/vulkan/LayerProperties.hpp"
     PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include/vulkan/luidSize.hpp"
+    PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include/vulkan/MakeVersion.hpp"
     PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include/vulkan/maxDescriptionSize.hpp"
     PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include/vulkan/maxExtensionNameSize.hpp"
     PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include/vulkan/maxPhysicalDeviceNameSize.hpp"

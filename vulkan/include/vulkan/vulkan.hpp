@@ -35,6 +35,7 @@
 #include <vulkan/InstanceCreateInfo.hpp>
 #include <vulkan/LayerProperties.hpp>
 #include <vulkan/luidSize.hpp>
+#include <vulkan/MakeVersion.hpp>
 #include <vulkan/maxDescriptionSize.hpp>
 #include <vulkan/maxExtensionNameSize.hpp>
 #include <vulkan/maxPhysicalDeviceNameSize.hpp>
