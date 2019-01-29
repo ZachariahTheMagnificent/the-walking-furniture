@@ -26,6 +26,7 @@
 #include <vulkan/Flag.hpp>
 #include <vulkan/GetDeviceProcAddr.hpp>
 #include <vulkan/GetInstanceProcAddr.hpp>
+#include <vulkan/GetPhysicalDeviceProperties.hpp>
 #include <vulkan/InputStructure.hpp>
 #include <vulkan/Instance.hpp>
 #include <vulkan/InstanceCreateFlags.hpp>
@@ -56,8 +57,6 @@
 
 namespace vk
 {
-	typedef void (VKAPI_PTR *GetPhysicalDeviceProperties)(PhysicalDevice physicalDevice, PhysicalDeviceProperties* pProperties);
-
 	typedef void (VKAPI_PTR *GetPhysicalDeviceProperties2)(
 		PhysicalDevice physicalDevice,
 		PhysicalDeviceProperties2* pProperties);
