@@ -12,6 +12,7 @@
 #include <vulkan/ApplicationInfo.hpp>
 #include <vulkan/Bool.hpp>
 #include <vulkan/CreateInstance.hpp>
+#include <vulkan/DestroyInstance.hpp>
 #include <vulkan/Device.hpp>
 #include <vulkan/DeviceAddress.hpp>
 #include <vulkan/DeviceSize.hpp>
@@ -53,8 +54,6 @@
 
 namespace vk
 {
-	typedef void (VKAPI_PTR *DestroyInstance)(Instance instance, const AllocationCallbacks* pAllocator);
-
 	typedef VoidFunction (VKAPI_PTR *GetDeviceProcAddr)(Device handle, const char* name);
 	typedef Result (VKAPI_PTR *EnumeratePhysicalDevices)(Instance instance, std::uint32_t* pPhysicalDeviceCount, PhysicalDevice* pPhysicalDevices);
 
