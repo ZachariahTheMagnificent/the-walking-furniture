@@ -4,8 +4,8 @@ namespace vk
 {
 	enum class StructureType
 	{
-		APPLICATION_INFO = 0,
-		INSTANCE_CREATE_INFO = 1,
+		applicationInfo = 0,
+		instanceCreateInfo = 1,
 		DEVICE_QUEUE_CREATE_INFO = 2,
 		DEVICE_CREATE_INFO = 3,
 		SUBMIT_INFO = 4,
