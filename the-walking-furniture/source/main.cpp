@@ -162,6 +162,7 @@ int main()
 	std::cout << "Your program has met the requirements of the Application.\n";
 #pragma endregion
 
+#pragma region Create instance
 	const auto vkCreateInstance = reinterpret_cast<vk::CreateInstance>(
 		vkGetInstanceProcAddr(nullptr, "vkCreateInstance"));
 
@@ -208,6 +209,7 @@ int main()
 	}
 	
 	std::cout << "Vulkan instance created successfully!\n";
+#pragma endregion
 
 	vkDestroyInstance(instance, nullptr);
 	FreeLibrary(vulkanLibrary);
