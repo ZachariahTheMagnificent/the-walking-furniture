@@ -42,6 +42,7 @@ target_sources(vulkan
     PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include/vulkan/DeviceQueueCreateFlags.hpp"
     PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include/vulkan/DeviceQueueCreateInfo.hpp"
     PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include/vulkan/DeviceSize.hpp"
+    PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include/vulkan/DeviceWaitIdle.hpp"
     PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include/vulkan/EnumerateDeviceExtensionProperties.hpp"
     PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include/vulkan/EnumerateInstanceExtensionProperties.hpp"
     PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include/vulkan/EnumerateInstanceLayerProperties.hpp"

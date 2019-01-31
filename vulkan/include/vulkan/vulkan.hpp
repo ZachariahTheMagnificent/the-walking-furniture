@@ -34,6 +34,7 @@
 #include <vulkan/DeviceCreateInfo.hpp>
 #include <vulkan/DeviceGroupDeviceCreateInfo.hpp>
 #include <vulkan/DeviceSize.hpp>
+#include <vulkan/DeviceWaitIdle.hpp>
 #include <vulkan/EnumerateDeviceExtensionProperties.hpp>
 #include <vulkan/EnumerateInstanceExtensionProperties.hpp>
 #include <vulkan/EnumerateInstanceLayerProperties.hpp>
