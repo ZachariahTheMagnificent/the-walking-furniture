@@ -11,8 +11,10 @@
 #include <vulkan/khr/maxDriverNameSize.hpp>
 #include <vulkan/khr/PhysicalDeviceDriverProperties.hpp>
 #include <vulkan/khr/GetPhysicalDeviceProperties2.hpp>
+#include <vulkan/khr/GetPhysicalDeviceQueueFamilyProperties2.hpp>
 #include <vulkan/khr/PhysicalDeviceIdProperties.hpp>
 #include <vulkan/khr/PhysicalDeviceProperties2.hpp>
+#include <vulkan/khr/QueueFamilyProperties2.hpp>
 #include <vulkan/AllocationCallbacks.hpp>
 #include <vulkan/API_PTR.hpp>
 #include <vulkan/ApplicationInfo.hpp>
@@ -35,6 +37,7 @@
 #include <vulkan/GetPhysicalDeviceProperties.hpp>
 #include <vulkan/GetPhysicalDeviceProperties2.hpp>
 #include <vulkan/GetPhysicalDeviceQueueFamilyProperties.hpp>
+#include <vulkan/GetPhysicalDeviceQueueFamilyProperties2.hpp>
 #include <vulkan/InputStructure.hpp>
 #include <vulkan/Instance.hpp>
 #include <vulkan/InstanceCreateFlags.hpp>
@@ -57,6 +60,7 @@
 #include <vulkan/PhysicalDeviceType.hpp>
 #include <vulkan/PrintableVersion.hpp>
 #include <vulkan/QueueFamilyProperties.hpp>
+#include <vulkan/QueueFamilyProperties2.hpp>
 #include <vulkan/QueueFlagBits.hpp>
 #include <vulkan/QueueFlags.hpp>
 #include <vulkan/Rect2d.hpp>
