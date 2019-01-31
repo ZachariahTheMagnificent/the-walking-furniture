@@ -5,6 +5,11 @@
 #include <vulkan/ext/ValidationFeatureEnable.hpp>
 #include <vulkan/ext/ValidationFeatures.hpp>
 #include <vulkan/ext/ValidationFlags.hpp>
+#include <vulkan/khr/ConformanceVersion.hpp>
+#include <vulkan/khr/DriverId.hpp>
+#include <vulkan/khr/maxDriverInfoSize.hpp>
+#include <vulkan/khr/maxDriverNameSize.hpp>
+#include <vulkan/khr/PhysicalDeviceDriverProperties.hpp>
 #include <vulkan/khr/GetPhysicalDeviceProperties2.hpp>
 #include <vulkan/khr/PhysicalDeviceIdProperties.hpp>
 #include <vulkan/khr/PhysicalDeviceProperties2.hpp>
