@@ -2,7 +2,7 @@
 
 namespace vk
 {
-	enum PhysicalDeviceType
+	enum class PhysicalDeviceType
 	{
 		other = 0,
 		integratedGpu = 1,

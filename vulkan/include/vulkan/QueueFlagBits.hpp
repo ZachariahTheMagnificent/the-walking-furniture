@@ -2,7 +2,7 @@
 
 namespace vk
 {
-	enum QueueFlagBits
+	enum class QueueFlagBits
 	{
 		graphics = 0x00000001,
 		compute = 0x00000002,

@@ -2,7 +2,7 @@
 
 namespace vk
 {
-	enum VendorId
+	enum class VendorId
 	{
 		viv = 0x10001,
 		vsi = 0x10002,

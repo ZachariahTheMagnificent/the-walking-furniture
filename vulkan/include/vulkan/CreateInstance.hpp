@@ -9,6 +9,7 @@ namespace vk
 {
 	typedef Result (VKAPI_PTR *CreateInstance)(
 		const InstanceCreateInfo* info,
-		const AllocationCallbacks* allocator,
-		Instance* output);
+		const AllocationCallbacks* allocators,
+		Instance* output
+	);
 }

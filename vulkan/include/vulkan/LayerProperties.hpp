@@ -7,9 +7,9 @@ namespace vk
 {
 	struct LayerProperties
 	{
-		char layerName[maxExtensionNameSize];
+		char name[maxExtensionNameSize];
 		std::uint32_t specVersion;
-		std::uint32_t implementationVersion;
+		std::uint32_t version;
 		char description[maxDescriptionSize];
 	};
 }

@@ -92,15 +92,15 @@ int main()
 		{
 			for(auto requiredExtension : requiredInstanceExtensions)
 			{
-				if(std::strcmp(property.extensionName, requiredExtension) == 0)
+				if(std::strcmp(property.name, requiredExtension) == 0)
 				{
 					--unmetDependencies;
 					break;
 				}
 			}
 
-			std::cout << property.extensionName << '\n';
-			std::cout << " version: " << property.specVersion << "\n";
+			std::cout << property.name << '\n';
+			std::cout << " version: " << property.version << "\n";
 			std::cout << '\n';
 		}
 	}
@@ -136,15 +136,15 @@ int main()
 		{
 			for(auto requiredExtension : requiredLayers)
 			{
-				if(std::strcmp(property.layerName, requiredExtension) == 0)
+				if(std::strcmp(property.name, requiredExtension) == 0)
 				{
 					--unmetDependencies;
 					break;
 				}
 			}
-			std::cout << property.layerName << '\n';
+			std::cout << property.name << '\n';
 			std::cout << " Vulkan version: " << vk::PrintableVersion(property.specVersion) << '\n';
-			std::cout << " version: " << property.implementationVersion << "\n";
+			std::cout << " version: " << property.version << "\n";
 			std::cout << " description: " << property.description << "\n";
 			std::cout << '\n';
 		}

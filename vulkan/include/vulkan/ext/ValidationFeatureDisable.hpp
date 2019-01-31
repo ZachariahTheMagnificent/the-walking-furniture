@@ -6,10 +6,10 @@ namespace vk::ext
 	{
 		all = 0,
 		shaders = 1,
-		thread_safety = 2,
-		api_parameters = 3,
-		object_lifetimes = 4,
-		core_checks = 5,
-		unique_handles = 6,
+		threadSafety = 2,
+		apiParameters = 3,
+		objectLifetimes = 4,
+		coreChecks = 5,
+		uniqueHandles = 6,
 	};
 }

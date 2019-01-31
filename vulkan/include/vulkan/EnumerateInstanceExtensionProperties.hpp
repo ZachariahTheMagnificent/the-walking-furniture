@@ -7,7 +7,7 @@
 namespace vk
 {
 	typedef Result (VKAPI_PTR *EnumerateInstanceExtensionProperties)(
-		const char* pLayerName,
-		std::uint32_t* pPropertyCount,
-		ExtensionProperties* pProperties);
+		const char* layerName,
+		std::uint32_t* propertyCount,
+		ExtensionProperties* properties);
 }

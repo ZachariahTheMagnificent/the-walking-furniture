@@ -4,8 +4,7 @@
 
 namespace vk
 {
-	struct PhysicalDeviceProperties2 : OutputStructure
+	struct PhysicalDeviceProperties2 : OutputStructure, PhysicalDeviceProperties
 	{
-		PhysicalDeviceProperties properties;
 	};
 }

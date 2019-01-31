@@ -9,8 +9,8 @@ namespace vk::ext
 	struct ValidationFeatures : InputStructure
 	{
 		std::uint32_t enabledValidationFeatureCount;
-		const ValidationFeatureEnable* pEnabledValidationFeatures;
+		const ValidationFeatureEnable* enabledValidationFeatures;
 		std::uint32_t disabledValidationFeatureCount;
-		const ValidationFeatureDisable* pDisabledValidationFeatures;
+		const ValidationFeatureDisable* disabledValidationFeatures;
 	};
 }

@@ -7,6 +7,6 @@
 namespace vk
 {
 	typedef Result (VKAPI_PTR *EnumerateInstanceLayerProperties)(
-		std::uint32_t* pPropertyCount,
-		LayerProperties* pProperties);
+		std::uint32_t* propertyCount,
+		LayerProperties* properties);
 }

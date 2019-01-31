@@ -5,7 +5,7 @@
 
 namespace vk
 {
-	void GetPhysicalDeviceQueueFamilyProperties(
+	typedef void (VKAPI_PTR *GetPhysicalDeviceQueueFamilyProperties)(
 		PhysicalDevice physicalDevice,
 		std::uint32_t* queueFamilyPropertyCount,
 		QueueFamilyProperties* queueFamilyProperties

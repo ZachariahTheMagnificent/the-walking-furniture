@@ -5,5 +5,5 @@
 
 namespace vk
 {
-	typedef Result (VKAPI_PTR *EnumerateInstanceVersion)(std::uint32_t* output);
+	typedef Result (VKAPI_PTR *EnumerateInstanceVersion)(std::uint32_t* version);
 }

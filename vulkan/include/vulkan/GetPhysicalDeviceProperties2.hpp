@@ -7,5 +7,5 @@ namespace vk
 {
 	typedef void (VKAPI_PTR *GetPhysicalDeviceProperties2)(
 		PhysicalDevice physicalDevice,
-		PhysicalDeviceProperties2* pProperties);
+		PhysicalDeviceProperties2* properties);
 }

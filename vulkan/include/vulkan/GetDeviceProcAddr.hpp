@@ -5,5 +5,5 @@
 
 namespace vk
 {
-	typedef VoidFunction (VKAPI_PTR *GetDeviceProcAddr)(Device handle, const char* name);
+	typedef VoidFunction (VKAPI_PTR *GetDeviceProcAddr)(Device device, const char* name);
 }

@@ -8,6 +8,6 @@ namespace vk::ext
 	struct ValidationFlags : InputStructure
 	{
 		std::uint32_t disabledValidationCheckCount;
-		const ValidationCheck* pDisabledValidationChecks;
+		const ValidationCheck* disabledValidationChecks;
 	};
 }
