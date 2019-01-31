@@ -15,6 +15,7 @@
 #include <vulkan/khr/PhysicalDeviceIdProperties.hpp>
 #include <vulkan/khr/PhysicalDeviceProperties2.hpp>
 #include <vulkan/khr/QueueFamilyProperties2.hpp>
+#include <vulkan/nv/QueueFamilyCheckpointProperties.hpp>
 #include <vulkan/AllocationCallbacks.hpp>
 #include <vulkan/API_PTR.hpp>
 #include <vulkan/ApplicationInfo.hpp>
@@ -58,6 +59,7 @@
 #include <vulkan/PhysicalDeviceProperties2.hpp>
 #include <vulkan/PhysicalDeviceSparceProperties.hpp>
 #include <vulkan/PhysicalDeviceType.hpp>
+#include <vulkan/PipelineStageFlags.hpp>
 #include <vulkan/PrintableVersion.hpp>
 #include <vulkan/QueueFamilyProperties.hpp>
 #include <vulkan/QueueFamilyProperties2.hpp>
