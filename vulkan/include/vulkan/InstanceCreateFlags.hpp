@@ -1,7 +1,7 @@
 #pragma once
-#include <vulkan/Flag.hpp>
+#include <vulkan/Flags.hpp>
 
 namespace vk
 {
-	using InstanceCreateFlags = Flag;
+	using InstanceCreateFlags = Flags;
 }

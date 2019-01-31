@@ -3,5 +3,5 @@
 
 namespace vk
 {
-	using SampleCountFlags = Flags;
+	using QueueFlags = Flags;
 }

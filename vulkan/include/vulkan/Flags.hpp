@@ -3,5 +3,5 @@
 
 namespace vk
 {
-	using Flag = std::uint32_t;
+	using Flags = std::uint32_t;
 }

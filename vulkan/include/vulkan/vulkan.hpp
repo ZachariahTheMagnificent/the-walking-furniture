@@ -29,11 +29,12 @@
 #include <vulkan/ExtensionProperties.hpp>
 #include <vulkan/Extent2d.hpp>
 #include <vulkan/Extent3d.hpp>
-#include <vulkan/Flag.hpp>
+#include <vulkan/Flags.hpp>
 #include <vulkan/GetDeviceProcAddr.hpp>
 #include <vulkan/GetInstanceProcAddr.hpp>
 #include <vulkan/GetPhysicalDeviceProperties.hpp>
 #include <vulkan/GetPhysicalDeviceProperties2.hpp>
+#include <vulkan/GetPhysicalDeviceQueueFamilyProperties.hpp>
 #include <vulkan/InputStructure.hpp>
 #include <vulkan/Instance.hpp>
 #include <vulkan/InstanceCreateFlags.hpp>
@@ -55,6 +56,9 @@
 #include <vulkan/PhysicalDeviceSparceProperties.hpp>
 #include <vulkan/PhysicalDeviceType.hpp>
 #include <vulkan/PrintableVersion.hpp>
+#include <vulkan/QueueFamilyProperties.hpp>
+#include <vulkan/QueueFlagBits.hpp>
+#include <vulkan/QueueFlags.hpp>
 #include <vulkan/Rect2d.hpp>
 #include <vulkan/Result.hpp>
 #include <vulkan/SampleCountFlags.hpp>
