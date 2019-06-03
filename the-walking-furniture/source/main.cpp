@@ -1,20 +1,22 @@
 #include <Windows.h>
-#include <vulkan/vulkan.hpp>
 #include <iostream>
 #include <array>
 #include <vector>
+#include <vulkan/vulkan.hpp>
 
 int main()
 {
 #pragma region constants
-	constexpr auto requiredInstanceExtensions = std::array{
+	constexpr auto requiredInstanceExtensions = std::array
+	{
 		"VK_EXT_debug_report",
 		"VK_EXT_debug_utils",
 		"VK_KHR_surface",
 		"VK_KHR_win32_surface"
 	};
 
-	constexpr auto requiredLayers = std::array{
+	constexpr auto requiredLayers = std::array
+	{
 		"VK_LAYER_RENDERDOC_Capture",
 		"VK_LAYER_LUNARG_standard_validation"
 	};
@@ -30,7 +32,7 @@ int main()
 #pragma endregion
 
 #pragma region vkGetInstanceProcAddr
-	const auto vkGetInstanceProcAddr = reinterpret_cast<vk::GetInstanceProcAddr>(
+	const auto vkGetInstanceProcAddr = reinterpret_cast<PFN_vkGetInstanceProcAddr>(
 		GetProcAddress(vulkanLibrary, "vkGetInstanceProcAddr"));
 
 	if(vkGetInstanceProcAddr == nullptr)
@@ -42,7 +44,7 @@ int main()
 #pragma endregion
 
 #pragma region Query version
-	const auto vkEnumerateInstanceVersion = reinterpret_cast<vk::EnumerateInstanceVersion>(
+	const auto vkEnumerateInstanceVersion = reinterpret_cast<PFN_vkEnumerateInstanceVersion>(
 		vkGetInstanceProcAddr(nullptr, "vkEnumerateInstanceVersion"));
 
 	if(vkEnumerateInstanceVersion == nullptr)
@@ -55,13 +57,13 @@ int main()
 	auto version = std::uint32_t{};
 	vkEnumerateInstanceVersion(&version);
 
-	std::cout << "Vulkan version: " << vk::PrintableVersion(version) << '\n';
+	std::cout << "Vulkan version: " << (version >> 22 & 0x03ff) << '.' << (version >> 12 & 0x03ff) << '.' << (version & 0x0fff) << '\n';
 #pragma endregion
 
 #pragma region Dependencies
 	auto unmetDependencies = requiredInstanceExtensions.size() + requiredLayers.size();
 
-	const auto vkEnumerateInstanceExtensionProperties = reinterpret_cast<vk::EnumerateInstanceExtensionProperties>(
+	const auto vkEnumerateInstanceExtensionProperties = reinterpret_cast<PFN_vkEnumerateInstanceExtensionProperties>(
 		vkGetInstanceProcAddr(nullptr, "vkEnumerateInstanceExtensionProperties"));
 
 	if(vkEnumerateInstanceExtensionProperties == nullptr)
@@ -73,14 +75,14 @@ int main()
 
 	{
 		auto count = std::uint32_t{};
-		if(vkEnumerateInstanceExtensionProperties(nullptr, &count, nullptr) != vk::Result::success)
+		if(vkEnumerateInstanceExtensionProperties(nullptr, &count, nullptr) != VK_SUCCESS)
 		{
 			std::cerr << "vkEnumerateInstanceExtensionProperties() returned an error!\n";
 			FreeLibrary(vulkanLibrary);
 			return EXIT_FAILURE;
 		}
-		auto properties = std::vector<vk::ExtensionProperties>(count);
-		if(vkEnumerateInstanceExtensionProperties(nullptr, &count, properties.data()) != vk::Result::success)
+		auto properties = std::vector<VkExtensionProperties>(count);
+		if(vkEnumerateInstanceExtensionProperties(nullptr, &count, properties.data()) != VK_SUCCESS)
 		{
 			std::cerr << "vkEnumerateInstanceExtensionProperties() returned an error!\n";
 			FreeLibrary(vulkanLibrary);
@@ -92,20 +94,20 @@ int main()
 		{
 			for(auto requiredExtension : requiredInstanceExtensions)
 			{
-				if(std::strcmp(property.name, requiredExtension) == 0)
+				if(std::strcmp(property.extensionName, requiredExtension) == 0)
 				{
 					--unmetDependencies;
 					break;
 				}
 			}
 
-			std::cout << property.name << '\n';
-			std::cout << " version: " << property.version << "\n";
+			std::cout << property.extensionName << '\n';
+			std::cout << " version: " << property.specVersion << "\n";
 			std::cout << '\n';
 		}
 	}
 
-	const auto vkEnumerateInstanceLayerProperties = reinterpret_cast<vk::EnumerateInstanceLayerProperties>(
+	const auto vkEnumerateInstanceLayerProperties = reinterpret_cast<PFN_vkEnumerateInstanceLayerProperties>(
 		vkGetInstanceProcAddr(nullptr, "vkEnumerateInstanceLayerProperties"));
 
 	if(vkEnumerateInstanceLayerProperties == nullptr)
@@ -117,14 +119,14 @@ int main()
 
 	{
 		auto count = std::uint32_t{};
-		if(vkEnumerateInstanceLayerProperties(&count, nullptr) != vk::Result::success)
+		if(vkEnumerateInstanceLayerProperties(&count, nullptr) != VK_SUCCESS)
 		{
 			std::cerr << "vkEnumerateInstanceLayerProperties() returned an error!\n";
 			FreeLibrary(vulkanLibrary);
 			return EXIT_FAILURE;
 		}
-		auto properties = std::vector<vk::LayerProperties>(count);
-		if(vkEnumerateInstanceLayerProperties(&count, properties.data()) != vk::Result::success)
+		auto properties = std::vector<VkLayerProperties>(count);
+		if(vkEnumerateInstanceLayerProperties(&count, properties.data()) != VK_SUCCESS)
 		{
 			std::cerr << "vkEnumerateInstanceLayerProperties() returned an error!\n";
 			FreeLibrary(vulkanLibrary);
@@ -136,15 +138,15 @@ int main()
 		{
 			for(auto requiredExtension : requiredLayers)
 			{
-				if(std::strcmp(property.name, requiredExtension) == 0)
+				if(std::strcmp(property.layerName, requiredExtension) == 0)
 				{
 					--unmetDependencies;
 					break;
 				}
 			}
-			std::cout << property.name << '\n';
-			std::cout << " Vulkan version: " << vk::PrintableVersion(property.specVersion) << '\n';
-			std::cout << " version: " << property.version << "\n";
+			std::cout << property.layerName << '\n';
+			std::cout << " Vulkan version: " << (property.specVersion >> 22 & 0x03ff) << '.' << (property.specVersion >> 12 & 0x03ff) << '.' << (property.specVersion & 0x0fff) << '\n';
+			std::cout << " version: " << property.implementationVersion << "\n";
 			std::cout << " description: " << property.description << "\n";
 			std::cout << '\n';
 		}
@@ -162,56 +164,57 @@ int main()
 	std::cout << "Your program has met the requirements of the Application.\n";
 #pragma endregion
 
-#pragma region Create instance
-	const auto vkCreateInstance = reinterpret_cast<vk::CreateInstance>(
-		vkGetInstanceProcAddr(nullptr, "vkCreateInstance"));
+// #pragma region Create instance
+// 	const auto vkCreateInstance = reinterpret_cast<PFN_vkCreateInstance>(
+// 		vkGetInstanceProcAddr(nullptr, "vkCreateInstance"));
 
-	if(vkCreateInstance == nullptr)
-	{
-		std::cerr << "Can't load vkCreateInstance!\n";
-		FreeLibrary(vulkanLibrary);
-		return EXIT_FAILURE;
-	}
+// 	if(vkCreateInstance == nullptr)
+// 	{
+// 		std::cerr << "Can't load vkCreateInstance!\n";
+// 		FreeLibrary(vulkanLibrary);
+// 		return EXIT_FAILURE;
+// 	}
 
-	const auto applicationInfo = vk::ApplicationInfo{
-		"The Walking Furniture",
-		vk::MakeVersion(1,0,0),
-		"Ikea Engine",
-		vk::MakeVersion(1,0,0),
-		vk::MakeVersion(1,1,0)
-	};
+// 	const auto applicationInfo = VkApplicationInfo{
+// 		"The Walking Furniture",
+// 		vk::MakeVersion(1,0,0),
+// 		"Ikea Engine",
+// 		vk::MakeVersion(1,0,0),
+// 		vk::MakeVersion(1,1,0)
+// 	};
 
-	const auto instanceCreateInfo = vk::InstanceCreateInfo{
-		&applicationInfo,
-		static_cast<std::uint32_t>(requiredLayers.size()),
-		requiredLayers.data(),
-		static_cast<std::uint32_t>(requiredInstanceExtensions.size()),
-		requiredInstanceExtensions.data()
-	};
+// 	const auto instanceCreateInfo = VkInstanceCreateInfo{
+// 		&applicationInfo,
+// 		static_cast<std::uint32_t>(requiredLayers.size()),
+// 		requiredLayers.data(),
+// 		static_cast<std::uint32_t>(requiredInstanceExtensions.size()),
+// 		requiredInstanceExtensions.data()
+// 	};
 
-	auto instance = vk::Instance{};
+// 	auto instance = VkInstance{};
 
-	if(vkCreateInstance(&instanceCreateInfo, nullptr, &instance) != vk::Result::success)
-	{
-		std::cerr << "Failed to create an instance!\n";
-		FreeLibrary(vulkanLibrary);
-		return EXIT_FAILURE;
-	}
+// 	if(vkCreateInstance(&instanceCreateInfo, nullptr, &instance) != VK_SUCCESS)
+// 	{
+// 		std::cerr << "Failed to create an instance!\n";
+// 		FreeLibrary(vulkanLibrary);
+// 		return EXIT_FAILURE;
+// 	}
 
-	const auto vkDestroyInstance = reinterpret_cast<vk::DestroyInstance>(
-		vkGetInstanceProcAddr(instance, "vkDestroyInstance"));
+// 	const auto vkDestroyInstance = reinterpret_cast<PFN_vkDestroyInstance>(
+// 		vkGetInstanceProcAddr(instance, "vkDestroyInstance"));
 
-	if(vkDestroyInstance == nullptr)
-	{
-		std::cerr << "Can't load vkDestroyInstance!\n";
-		FreeLibrary(vulkanLibrary);
-		return EXIT_FAILURE;
-	}
+// 	if(vkDestroyInstance == nullptr)
+// 	{
+// 		std::cerr << "Can't load vkDestroyInstance!\n";
+// 		FreeLibrary(vulkanLibrary);
+// 		return EXIT_FAILURE;
+// 	}
 	
-	std::cout << "Vulkan instance created successfully!\n";
-#pragma endregion
+// 	std::cout << "Vulkan instance created successfully!\n";
 
-	vkDestroyInstance(instance, nullptr);
+// 	vkDestroyInstance(instance, nullptr);
+// #pragma endregion
+
 	FreeLibrary(vulkanLibrary);
 	return EXIT_SUCCESS;
 }
