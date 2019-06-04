@@ -3,6 +3,58 @@
 #include <array>
 #include <vector>
 #include <vulkan/vulkan.hpp>
+#include <stdexcept>
+#include <string>
+#include <sstream>
+
+class Module
+{
+public:
+	Module() = default;
+	Module(const std::string& name)
+	:
+	Module{name.c_str()}
+	{
+		auto x = handle.get();
+	}
+	template<typename Type>
+	Module(Type&& name)
+	:
+	handle{LoadLibrary(name)}
+	{
+		if(handle.get() == nullptr)
+		{
+			throw std::runtime_error{(std::stringstream{"Failed to initialize module "} << name << "!").str()};
+		}
+	}
+
+	template<typename Function>
+	auto get_function_address(const std::string& name)
+	{
+		return get_function_address<Function>(name.c_str());
+	}
+	template<typename Function, typename String>
+	auto get_function_address(String&& name)
+	{
+		using NakedFunction = std::remove_pointer_t<Function>;
+		static_assert(std::is_function_v<NakedFunction>, "That is not a function nor a function pointer!");
+		return reinterpret_cast<NakedFunction*>(GetProcAddress(handle.get(), name));
+	}
+
+private:
+	class Deleter
+	{
+	public:
+		using pointer = HMODULE;
+
+		void operator()(HMODULE module) const noexcept
+		{
+			FreeLibrary(module);
+		}
+	};
+
+	std::unique_ptr<HMODULE, Deleter> handle{};
+};
 
 int main()
 {
@@ -22,23 +74,14 @@ int main()
 	};
 #pragma endregion
 
-#pragma region load library
-	const auto vulkanLibrary = LoadLibrary("vulkan-1.dll");
-	if(vulkanLibrary == nullptr)
-	{
-		std::cerr << "Can't open library!\n";
-		return EXIT_FAILURE;
-	}
-#pragma endregion
+	auto vulkanLibrary = Module{"vulkan-1.dll"};
 
 #pragma region vkGetInstanceProcAddr
-	const auto vkGetInstanceProcAddr = reinterpret_cast<PFN_vkGetInstanceProcAddr>(
-		GetProcAddress(vulkanLibrary, "vkGetInstanceProcAddr"));
+	const auto vkGetInstanceProcAddr = vulkanLibrary.get_function_address<PFN_vkGetInstanceProcAddr>("vkGetInstanceProcAddr");
 
 	if(vkGetInstanceProcAddr == nullptr)
 	{
 		std::cerr << "Can't load vkGetInstanceProcAddr!\n";
-		FreeLibrary(vulkanLibrary);
 		return EXIT_FAILURE;
 	}
 #pragma endregion
@@ -50,7 +93,6 @@ int main()
 	if(vkEnumerateInstanceVersion == nullptr)
 	{
 		std::cerr << "Can't load vkEnumerateInstanceVersion!\n";
-		FreeLibrary(vulkanLibrary);
 		return EXIT_FAILURE;
 	}
 
@@ -69,7 +111,6 @@ int main()
 	if(vkEnumerateInstanceExtensionProperties == nullptr)
 	{
 		std::cerr << "Can't load vkEnumerateInstanceExtensionProperties!\n";
-		FreeLibrary(vulkanLibrary);
 		return EXIT_FAILURE;
 	}
 
@@ -78,14 +119,12 @@ int main()
 		if(vkEnumerateInstanceExtensionProperties(nullptr, &count, nullptr) != VK_SUCCESS)
 		{
 			std::cerr << "vkEnumerateInstanceExtensionProperties() returned an error!\n";
-			FreeLibrary(vulkanLibrary);
 			return EXIT_FAILURE;
 		}
 		auto properties = std::vector<VkExtensionProperties>(count);
 		if(vkEnumerateInstanceExtensionProperties(nullptr, &count, properties.data()) != VK_SUCCESS)
 		{
 			std::cerr << "vkEnumerateInstanceExtensionProperties() returned an error!\n";
-			FreeLibrary(vulkanLibrary);
 			return EXIT_FAILURE;
 		}
 
@@ -113,7 +152,6 @@ int main()
 	if(vkEnumerateInstanceLayerProperties == nullptr)
 	{
 		std::cerr << "Can't load vkEnumerateInstanceExtensionProperties!\n";
-		FreeLibrary(vulkanLibrary);
 		return EXIT_FAILURE;
 	}
 
@@ -122,14 +160,12 @@ int main()
 		if(vkEnumerateInstanceLayerProperties(&count, nullptr) != VK_SUCCESS)
 		{
 			std::cerr << "vkEnumerateInstanceLayerProperties() returned an error!\n";
-			FreeLibrary(vulkanLibrary);
 			return EXIT_FAILURE;
 		}
 		auto properties = std::vector<VkLayerProperties>(count);
 		if(vkEnumerateInstanceLayerProperties(&count, properties.data()) != VK_SUCCESS)
 		{
 			std::cerr << "vkEnumerateInstanceLayerProperties() returned an error!\n";
-			FreeLibrary(vulkanLibrary);
 			return EXIT_FAILURE;
 		}
 
@@ -157,7 +193,6 @@ int main()
 	if(unmetDependencies != 0)
 	{
 		std::cerr << "Your program has not met the requirements of the Application.\n";
-		FreeLibrary(vulkanLibrary);
 		return EXIT_FAILURE;
 	}
 
@@ -171,7 +206,6 @@ int main()
 // 	if(vkCreateInstance == nullptr)
 // 	{
 // 		std::cerr << "Can't load vkCreateInstance!\n";
-// 		FreeLibrary(vulkanLibrary);
 // 		return EXIT_FAILURE;
 // 	}
 
@@ -196,7 +230,6 @@ int main()
 // 	if(vkCreateInstance(&instanceCreateInfo, nullptr, &instance) != VK_SUCCESS)
 // 	{
 // 		std::cerr << "Failed to create an instance!\n";
-// 		FreeLibrary(vulkanLibrary);
 // 		return EXIT_FAILURE;
 // 	}
 
@@ -206,7 +239,6 @@ int main()
 // 	if(vkDestroyInstance == nullptr)
 // 	{
 // 		std::cerr << "Can't load vkDestroyInstance!\n";
-// 		FreeLibrary(vulkanLibrary);
 // 		return EXIT_FAILURE;
 // 	}
 	
@@ -215,6 +247,5 @@ int main()
 // 	vkDestroyInstance(instance, nullptr);
 // #pragma endregion
 
-	FreeLibrary(vulkanLibrary);
 	return EXIT_SUCCESS;
 }
