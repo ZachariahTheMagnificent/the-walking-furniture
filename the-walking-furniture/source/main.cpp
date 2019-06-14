@@ -56,6 +56,34 @@ private:
 	std::unique_ptr<HMODULE, Deleter> handle{};
 };
 
+struct VulkanVersion
+{
+	VulkanVersion() = default;
+	constexpr VulkanVersion(const std::uint32_t value) noexcept
+	:
+	patch{value},
+	minor{value >> 12},
+	major{value >> 22}
+	{
+	}
+
+	constexpr operator std::uint32_t() const noexcept
+	{
+		return patch | minor << 12 | major << 22;
+	}
+
+	std::uint32_t patch : 12;
+	std::uint32_t minor : 10;
+	std::uint32_t major : 10;
+};
+
+class VulkanModule
+{
+public:
+private:
+	Module module{"vulkan-1.dll"};
+};
+
 int main()
 {
 #pragma region constants
@@ -98,8 +126,9 @@ int main()
 
 	auto version = std::uint32_t{};
 	vkEnumerateInstanceVersion(&version);
+	auto unpackedVersion = VulkanVersion{version};
 
-	std::cout << "Vulkan version: " << (version >> 22 & 0x03ff) << '.' << (version >> 12 & 0x03ff) << '.' << (version & 0x0fff) << '\n';
+	std::cout << "Vulkan version: " << unpackedVersion.major << '.' << unpackedVersion.minor << '.' << unpackedVersion.patch << '\n';
 #pragma endregion
 
 #pragma region Dependencies
@@ -180,8 +209,9 @@ int main()
 					break;
 				}
 			}
+			const auto unpackedSpecVersion = VulkanVersion{property.specVersion};
 			std::cout << property.layerName << '\n';
-			std::cout << " Vulkan version: " << (property.specVersion >> 22 & 0x03ff) << '.' << (property.specVersion >> 12 & 0x03ff) << '.' << (property.specVersion & 0x0fff) << '\n';
+			std::cout << " Vulkan version: " << unpackedSpecVersion.major << '.' << unpackedSpecVersion.minor << '.' << unpackedSpecVersion.patch << '\n';
 			std::cout << " version: " << property.implementationVersion << "\n";
 			std::cout << " description: " << property.description << "\n";
 			std::cout << '\n';
@@ -199,53 +229,61 @@ int main()
 	std::cout << "Your program has met the requirements of the Application.\n";
 #pragma endregion
 
-// #pragma region Create instance
-// 	const auto vkCreateInstance = reinterpret_cast<PFN_vkCreateInstance>(
-// 		vkGetInstanceProcAddr(nullptr, "vkCreateInstance"));
+#pragma region Create instance
+	const auto vkCreateInstance = reinterpret_cast<PFN_vkCreateInstance>(
+		vkGetInstanceProcAddr(nullptr, "vkCreateInstance"));
 
-// 	if(vkCreateInstance == nullptr)
-// 	{
-// 		std::cerr << "Can't load vkCreateInstance!\n";
-// 		return EXIT_FAILURE;
-// 	}
+	if(vkCreateInstance == nullptr)
+	{
+		std::cerr << "Can't load vkCreateInstance!\n";
+		return EXIT_FAILURE;
+	}
 
-// 	const auto applicationInfo = VkApplicationInfo{
-// 		"The Walking Furniture",
-// 		vk::MakeVersion(1,0,0),
-// 		"Ikea Engine",
-// 		vk::MakeVersion(1,0,0),
-// 		vk::MakeVersion(1,1,0)
-// 	};
+	const auto applicationInfo = VkApplicationInfo{
+		VK_STRUCTURE_TYPE_APPLICATION_INFO,
+		nullptr,
+		"The Walking Furniture",
+		//vk::MakeVersion(1,0,0),
+		1,
+		"Ikea Engine",
+		//vk::MakeVersion(1,0,0),
+		//vk::MakeVersion(1,1,0)
+		1,
+		1
+	};
 
-// 	const auto instanceCreateInfo = VkInstanceCreateInfo{
-// 		&applicationInfo,
-// 		static_cast<std::uint32_t>(requiredLayers.size()),
-// 		requiredLayers.data(),
-// 		static_cast<std::uint32_t>(requiredInstanceExtensions.size()),
-// 		requiredInstanceExtensions.data()
-// 	};
+	const auto instanceCreateInfo = VkInstanceCreateInfo{
+		VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO,
+		nullptr,
+		0,
+		&applicationInfo,
+		static_cast<std::uint32_t>(requiredLayers.size()),
+		requiredLayers.data(),
+		static_cast<std::uint32_t>(requiredInstanceExtensions.size()),
+		requiredInstanceExtensions.data()
+	};
 
-// 	auto instance = VkInstance{};
+	auto instance = VkInstance{};
 
-// 	if(vkCreateInstance(&instanceCreateInfo, nullptr, &instance) != VK_SUCCESS)
-// 	{
-// 		std::cerr << "Failed to create an instance!\n";
-// 		return EXIT_FAILURE;
-// 	}
+	if(vkCreateInstance(&instanceCreateInfo, nullptr, &instance) != VK_SUCCESS)
+	{
+		std::cerr << "Failed to create an instance!\n";
+		return EXIT_FAILURE;
+	}
 
-// 	const auto vkDestroyInstance = reinterpret_cast<PFN_vkDestroyInstance>(
-// 		vkGetInstanceProcAddr(instance, "vkDestroyInstance"));
+	const auto vkDestroyInstance = reinterpret_cast<PFN_vkDestroyInstance>(
+		vkGetInstanceProcAddr(instance, "vkDestroyInstance"));
 
-// 	if(vkDestroyInstance == nullptr)
-// 	{
-// 		std::cerr << "Can't load vkDestroyInstance!\n";
-// 		return EXIT_FAILURE;
-// 	}
+	if(vkDestroyInstance == nullptr)
+	{
+		std::cerr << "Can't load vkDestroyInstance!\n";
+		return EXIT_FAILURE;
+	}
 	
-// 	std::cout << "Vulkan instance created successfully!\n";
+	std::cout << "Vulkan instance created successfully!\n";
 
-// 	vkDestroyInstance(instance, nullptr);
-// #pragma endregion
+	vkDestroyInstance(instance, nullptr);
+#pragma endregion
 
 	return EXIT_SUCCESS;
 }
