@@ -235,26 +235,14 @@ int main()
 #pragma endregion
 
 #pragma region Create instance
-	const auto vkCreateInstance = reinterpret_cast<PFN_vkCreateInstance>(
-		vkGetInstanceProcAddr(nullptr, "vkCreateInstance"));
-
-	if(vkCreateInstance == nullptr)
-	{
-		std::cerr << "Can't load vkCreateInstance!\n";
-		return EXIT_FAILURE;
-	}
-
 	const auto applicationInfo = VkApplicationInfo{
 		VK_STRUCTURE_TYPE_APPLICATION_INFO,
 		nullptr,
 		"The Walking Furniture",
-		//vk::MakeVersion(1,0,0),
-		1,
+		VulkanVersion{1,0,0},
 		"Ikea Engine",
-		//vk::MakeVersion(1,0,0),
-		//vk::MakeVersion(1,1,0)
-		1,
-		1
+		VulkanVersion{1,0,0},
+		VulkanVersion{1,1,0}
 	};
 
 	const auto instanceCreateInfo = VkInstanceCreateInfo{
@@ -270,16 +258,26 @@ int main()
 
 	auto instance = VkInstance{};
 
+	const auto vkCreateInstance = reinterpret_cast<PFN_vkCreateInstance>(
+		vkGetInstanceProcAddr(nullptr, "vkCreateInstance"));
+
+	if(vkCreateInstance == nullptr)
+	{
+		std::cerr << "Can't load vkCreateInstance!\n";
+		return EXIT_FAILURE;
+	}
+
 	if(vkCreateInstance(&instanceCreateInfo, nullptr, &instance) != VK_SUCCESS)
 	{
 		std::cerr << "Failed to create an instance!\n";
 		return EXIT_FAILURE;
 	}
 
-	const auto vkDestroyInstance = reinterpret_cast<PFN_vkDestroyInstance>(
-		vkGetInstanceProcAddr(instance, "vkDestroyInstance"));
+	auto dispatchTable = vk::DispatchLoaderDynamic{instance, vkGetInstanceProcAddr};
+	
+	auto real_instance = vk::Instance{instance};
 
-	if(vkDestroyInstance == nullptr)
+	if(dispatchTable.vkDestroyInstance == nullptr)
 	{
 		std::cerr << "Can't load vkDestroyInstance!\n";
 		return EXIT_FAILURE;
@@ -287,7 +285,7 @@ int main()
 	
 	std::cout << "Vulkan instance created successfully!\n";
 
-	vkDestroyInstance(instance, nullptr);
+	dispatchTable.vkDestroyInstance(instance, nullptr);
 #pragma endregion
 
 	return EXIT_SUCCESS;
