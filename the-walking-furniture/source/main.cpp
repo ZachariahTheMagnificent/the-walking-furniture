@@ -61,9 +61,14 @@ struct VulkanVersion
 	VulkanVersion() = default;
 	constexpr VulkanVersion(const std::uint32_t value) noexcept
 	:
-	patch{value},
-	minor{value >> 12},
-	major{value >> 22}
+	VulkanVersion{value >> 22, value >> 12, value}
+	{
+	}
+	constexpr VulkanVersion(const std::uint32_t major, const std::uint32_t minor, const std::uint32_t patch) noexcept
+	:
+	patch{patch},
+	minor{minor},
+	major{major}
 	{
 	}
 
